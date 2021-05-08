@@ -7,9 +7,9 @@ class HomePage extends Component {
     movie: [],
   };
   async componentDidMount() {
-    const response = await Axios.get(
-      'https://api.themoviedb.org/3/trending/all/day?api_key=455a0ddf1ae97a91f0c666d83d1a7d1f',
-    );
+    const KEY = '455a0ddf1ae97a91f0c666d83d1a7d1f';
+    const searchQuery = `https://api.themoviedb.org/3/trending/all/day?api_key=${KEY}`;
+    const response = await Axios.get(searchQuery);
 
     this.setState({ movie: response.data.results });
   }
@@ -17,13 +17,11 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <h1>Pop films</h1>
+        <h1>Trending today</h1>
         <ul>
           {this.state.movie.map(movie => (
             <li key={movie.id}>
-              <Link to={`${this.props.match.url}/${movie.id}`}>
-                {movie.title}
-              </Link>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
         </ul>
