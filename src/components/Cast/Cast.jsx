@@ -21,10 +21,10 @@ class Cast extends Component {
         <ul>
           {this.state.cast.map(cast => (
             <li key={cast.id}>
-              {/* <img
-                src=""
+              <img
+                src={`https://image.tmdb.org/t/p/w138_and_h175_bestv2/${cast.profile_path}`}
                 alt=""
-              /> */}
+              />
               {cast.name} <p>Character: {cast.character}</p>
             </li>
           ))}
