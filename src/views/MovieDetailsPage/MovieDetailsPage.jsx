@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import Axios from 'axios';
-import Cast from '../../components/Cast';
-import Reviews from '../../components/Reviews';
+// import Cast from '../../components/Cast';
+// import Reviews from '../../components/Reviews';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -16,7 +16,6 @@ class MovieDetailsPage extends Component {
     const response = await Axios.get(searchQuery);
 
     this.setState({ movie: response.data, genres: response.data.genres });
-    console.log(this.state);
   }
 
   render() {
@@ -26,7 +25,7 @@ class MovieDetailsPage extends Component {
         <button type="button">Go back</button>
         <div>
           <img
-            src={`https://image.tmdb.org/t/p/w500${this.state.movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w300${this.state.movie.poster_path}`}
             alt=""
           />
           <h1>
@@ -52,8 +51,8 @@ class MovieDetailsPage extends Component {
             <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
           </li>
         </ul>
-        <Route exact path={`${match.url}/cast`} component={Cast} />
-        <Route exact path={`${match.url}/reviews`} component={Reviews} />
+        {/* <Route exact path="/movies/:movieId/cast" component={Cast} /> */}
+        {/* <Route exact path="{/movies/:movieId/reviews`}" component={Reviews} /> */}
       </div>
     );
   }
