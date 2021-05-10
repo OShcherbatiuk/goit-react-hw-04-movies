@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import Axios from 'axios';
-// import Cast from '../../components/Cast';
-// import Reviews from '../../components/Reviews';
+import Cast from '../../components/Cast';
+import Reviews from '../../components/Reviews';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -29,7 +29,7 @@ class MovieDetailsPage extends Component {
             alt=""
           />
           <h1>
-            {this.state.movie.title}(
+            {this.state.movie.title} (
             {new Date(this.state.movie.release_date).getFullYear()})
           </h1>
           <p>User score: {this.state.movie.vote_average}</p>
@@ -51,8 +51,12 @@ class MovieDetailsPage extends Component {
             <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
           </li>
         </ul>
-        {/* <Route exact path="/movies/:movieId/cast" component={Cast} /> */}
-        {/* <Route exact path="{/movies/:movieId/reviews`}" component={Reviews} /> */}
+        <div>
+          <Switch>
+            <Route path="/movies/:movieId/cast" component={Cast} />
+            <Route path="/movies/:movieId/reviews" component={Reviews} />
+          </Switch>
+        </div>
       </div>
     );
   }
