@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import MovieList from '../../components/MovieList';
 
+import s from './MoviesPages.module.css';
+
 class MoviesPage extends Component {
   state = {
     userSearchTerm: '',
@@ -29,10 +31,18 @@ class MoviesPage extends Component {
     const { movies } = this.state;
     return (
       <div>
-        <form>
-          <input type="text" onChange={this.onInputChange} />
-          <button type="submit" onClick={this.onInputSubmit}>
-            Search
+        <form className={s.SearchForm}>
+          <input
+            className={s.SearchForm_input}
+            type="text"
+            onChange={this.onInputChange}
+          />
+          <button
+            type="submit"
+            className={s.SearchForm_button}
+            onClick={this.onInputSubmit}
+          >
+            <span className={s.SearchForm_button_label}>Search</span>
           </button>
         </form>
         <MovieList movies={movies} />
