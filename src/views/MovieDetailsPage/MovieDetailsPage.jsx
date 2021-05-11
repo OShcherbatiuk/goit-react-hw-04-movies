@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import Axios from 'axios';
 import Cast from '../../components/Cast';
 import Reviews from '../../components/Reviews';
@@ -33,7 +33,7 @@ class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { match } = this.props;
+    const { match, location } = this.props;
     const { movies, genres } = this.state;
     return (
       <div>
@@ -66,10 +66,28 @@ class MovieDetailsPage extends Component {
           <p>Aditional infomation</p>
           <ul>
             <li>
-              <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${match.url}/cast`,
+                  state: {
+                    from: location,
+                  },
+                }}
+              >
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${match.url}/reviews`,
+                  state: {
+                    from: location,
+                  },
+                }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -85,4 +103,4 @@ class MovieDetailsPage extends Component {
   }
 }
 
-export default MovieDetailsPage;
+export default withRouter(MovieDetailsPage);
