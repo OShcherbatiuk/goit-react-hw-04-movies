@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import MovieList from '../../components/MovieList';
 
 class MoviesPage extends Component {
   state = {
@@ -26,18 +26,16 @@ class MoviesPage extends Component {
   };
 
   render() {
+    const { movies } = this.state;
     return (
       <div>
-        <form onSubmit={this.onInputSubmit}>
+        <form>
           <input type="text" onChange={this.onInputChange} />
+          <button type="submit" onClick={this.onInputSubmit}>
+            Search
+          </button>
         </form>
-        <ul>
-          {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-            </li>
-          ))}
-        </ul>
+        <MovieList movies={movies} />
       </div>
     );
   }

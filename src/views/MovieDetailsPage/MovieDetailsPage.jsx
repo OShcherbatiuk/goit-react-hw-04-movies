@@ -3,10 +3,11 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 import Axios from 'axios';
 import Cast from '../../components/Cast';
 import Reviews from '../../components/Reviews';
+import routes from '../../routes';
 
 class MovieDetailsPage extends Component {
   state = {
-    movie: [],
+    movies: [],
     genres: [],
   };
 
@@ -15,29 +16,42 @@ class MovieDetailsPage extends Component {
     const searchQuery = `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=${KEY}&language=en-US`;
     const response = await Axios.get(searchQuery);
 
-    this.setState({ movie: response.data, genres: response.data.genres });
+    this.setState({ movies: response.data, genres: response.data.genres });
   }
+
+  handleGoBack = () => {
+    const { location, history } = this.props;
+
+    if (location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push(routes.HomePage);
+
+    // history.push(location?.state?.from || routes.HomePage);
+  };
 
   render() {
     const { match } = this.props;
+    const { movies, genres } = this.state;
     return (
       <div>
-        <button type="button">Go back</button>
+        <button type="button" onClick={this.handleGoBack}>
+          Go back
+        </button>
         <div>
           <img
-            src={`https://image.tmdb.org/t/p/w300${this.state.movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w300${this.state.movies.poster_path}`}
             alt=""
           />
           <h1>
-            {this.state.movie.title} (
-            {new Date(this.state.movie.release_date).getFullYear()})
+            {movies.title} ({new Date(movies.release_date).getFullYear()})
           </h1>
-          <p>User score: {this.state.movie.vote_average}</p>
+          <p>User score: {movies.vote_average}</p>
           <h2>Overview</h2>
-          <p>{this.state.movie.overview}</p>
+          <p>{movies.overview}</p>
           <h3>Genres</h3>
           <ul>
-            {this.state.genres.map(genre => (
+            {genres.map(genre => (
               <li key={genre.id}>{genre.name}</li>
             ))}
           </ul>
@@ -53,8 +67,8 @@ class MovieDetailsPage extends Component {
         </ul>
         <div>
           <Switch>
-            <Route path="/movies/:movieId/cast" component={Cast} />
-            <Route path="/movies/:movieId/reviews" component={Reviews} />
+            <Route path={`${match.path}/cast`} component={Cast} />
+            <Route path={`${match.path}/reviews`} component={Reviews} />
           </Switch>
         </div>
       </div>

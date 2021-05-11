@@ -1,28 +1,42 @@
-import HomePage from './views/HomePage';
-import MoviesPage from './views/MoviesPage';
-import MovieDetailsPage from './views/MovieDetailsPage';
-import NotFoundView from './views/NotFoundView';
+import { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import NotFoundView from './views/NotFoundView';
+import AppBar from './components/AppBar';
+import routes from './routes';
+import Loader from 'react-loader-spinner';
+
+const HomePage = lazy(() =>
+  import('./views/HomePage' /*webpackChunkName: "home-page"*/),
+);
+const MoviesPage = lazy(() =>
+  import('./views/MoviesPage' /*webpackChunkName: "movies-page"*/),
+);
+const MovieDetailsPage = lazy(() =>
+  import('./views/MovieDetailsPage' /*webpackChunkName: "movie-details-page"*/),
+);
 
 const App = () => (
   <>
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/movies">Movies</NavLink>
-        </li>
-      </ul>
-    </nav>
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route exact path="/movies" component={MoviesPage} />
-      <Route path="/movies/:movieId" component={MovieDetailsPage} />
-      <Route component={NotFoundView} />
-    </Switch>
+    <AppBar />
+    <Suspense
+      fallback={
+        <Loader
+          className="{s.Loader}"
+          type="ThreeDots"
+          color="#3f51b5"
+          height={80}
+          width={80}
+          timeout={3000}
+        />
+      }
+    >
+      <Switch>
+        <Route exact path={routes.HomePage} component={HomePage} />
+        <Route exact path={routes.MoviesPage} component={MoviesPage} />
+        <Route path={routes.MovieDetailsPage} component={MovieDetailsPage} />
+        <Route component={NotFoundView} />
+      </Switch>
+    </Suspense>
   </>
 );
 

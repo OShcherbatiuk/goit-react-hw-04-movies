@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Axios from 'axios';
+
 class Reviews extends Component {
   state = { reviews: [] };
 
@@ -9,18 +10,25 @@ class Reviews extends Component {
     const response = await Axios.get(searchQuery);
 
     this.setState({ reviews: response.data.results });
-    console.log(this.state);
   }
 
   render() {
+    const { reviews } = this.state;
+    const isReviews = reviews.length;
     return (
-      <ul>
-        {this.state.reviews.map(review => (
-          <li key={review.id}>
-            Author: {review.author} <p>{review.content}</p>
-          </li>
-        ))}
-      </ul>
+      <div>
+        {isReviews ? (
+          <ul>
+            {reviews.map(review => (
+              <li key={review.id}>
+                Author: {review.author} <p>{review.content}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>We don't have any reviews for this movie.</p>
+        )}
+      </div>
     );
   }
 }

@@ -13,22 +13,27 @@ class Cast extends Component {
     this.setState({
       cast: response.data.cast,
     });
-    console.log(this.state);
   }
   render() {
+    const { cast } = this.state;
+    const isCast = cast.length;
     return (
       <div>
-        <ul>
-          {this.state.cast.map(cast => (
-            <li key={cast.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w138_and_h175_bestv2/${cast.profile_path}`}
-                alt=""
-              />
-              {cast.name} <p>Character: {cast.character}</p>
-            </li>
-          ))}
-        </ul>
+        {isCast ? (
+          <ul>
+            {cast.map(cast => (
+              <li key={cast.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w138_and_h175_bestv2/${cast.profile_path}`}
+                  alt=""
+                />
+                {cast.name} <p>Character: {cast.character}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>We don't have any cast for this movie.</p>
+        )}
       </div>
     );
   }
