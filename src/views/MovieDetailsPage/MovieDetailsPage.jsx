@@ -18,7 +18,10 @@ class MovieDetailsPage extends Component {
     const searchQuery = `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=${KEY}&language=en-US`;
     const response = await Axios.get(searchQuery);
 
-    this.setState({ movies: response.data, genres: response.data.genres });
+    this.setState({
+      movies: response.data,
+      genres: response.data.genres,
+    });
   }
 
   handleGoBack = () => {

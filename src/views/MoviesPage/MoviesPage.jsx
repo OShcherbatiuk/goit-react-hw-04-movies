@@ -10,13 +10,26 @@ class MoviesPage extends Component {
     movies: [],
   };
 
+  componentDidMount() {
+    const savedMovies = localStorage.getItem('movies');
+    const parsedMovies = JSON.parse(savedMovies);
+    if (parsedMovies) {
+      this.setState({ movies: parsedMovies });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.movies !== prevState.movies) {
+      localStorage.setItem('movies', JSON.stringify(this.state.movies));
+    }
+  }
+
   onInputChange = e => {
     this.setState({ userSearchTerm: e.target.value });
   };
 
   onInputSubmit = e => {
     e.preventDefault();
-
     const movieName = this.state.userSearchTerm;
     const KEY = '455a0ddf1ae97a91f0c666d83d1a7d1f';
 
@@ -29,6 +42,7 @@ class MoviesPage extends Component {
 
   render() {
     const { movies } = this.state;
+    console.log(this.state);
     return (
       <div>
         <form className={s.SearchForm}>
