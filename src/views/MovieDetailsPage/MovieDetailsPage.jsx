@@ -73,7 +73,7 @@ class MovieDetailsPage extends Component {
                 to={{
                   pathname: `${match.url}/cast`,
                   state: {
-                    from: location,
+                    from: location.state.from,
                   },
                 }}
               >
@@ -85,7 +85,7 @@ class MovieDetailsPage extends Component {
                 to={{
                   pathname: `${match.url}/reviews`,
                   state: {
-                    from: location,
+                    from: location.state.from,
                   },
                 }}
               >
