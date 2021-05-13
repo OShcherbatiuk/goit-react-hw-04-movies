@@ -1,4 +1,9 @@
 .header {
   display: flex;
-  background-color: #ff7f00;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url('./img/header-bg-desktop.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 46px 0 97px;
 }

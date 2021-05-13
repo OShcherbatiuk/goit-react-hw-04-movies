@@ -5,12 +5,12 @@
   display: block;
   font-size: 26px;
   font-weight: 700;
-  color: #1b140b;
+  color: #ffffff;
 }
 .navLink:not(:last-child) {
   margin-right: 20px;
 }
 .active {
-  color: #ffffff;
+  color: #ff7f00;
   text-decoration: underline;
 }
