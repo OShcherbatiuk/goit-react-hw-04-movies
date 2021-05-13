@@ -1,7 +1,7 @@
 .backBtn {
   margin-bottom: 30px;
   color: #fff;
-  background: #0a236a;
+  background: #207ddd;
   border: 2px solid transparent;
   border-radius: 4px;
   padding: 8px 15px;
@@ -11,8 +11,8 @@
 
 .backBtn:hover {
   background: none;
-  border: 2px solid #865d30;
-  color: #865d30;
+  border: 2px solid #ff7f00;
+  color: #ff7f00;
 }
 
 .backBtn:focus {

@@ -1,22 +1,28 @@
 import { Component } from 'react';
-import Axios from 'axios';
+import ApiService from '../../services/ApiService';
 
 import s from './Rewiews.module.css';
+const apiService = new ApiService();
 
 class Reviews extends Component {
   state = { reviews: [] };
 
-  async componentDidMount() {
-    const KEY = '455a0ddf1ae97a91f0c666d83d1a7d1f';
-    const searchQuery = `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/reviews?api_key=${KEY}&language=en-US&page=1`;
-    const response = await Axios.get(searchQuery);
-
-    this.setState({ reviews: response.data.results });
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
+  componentDidMount() {
+    this.fetchReviews();
   }
+
+  fetchReviews = () => {
+    const id = this.props.match.params.movieId;
+    apiService.getMovieReviews(id).then(data => {
+      this.setState({
+        reviews: data,
+      });
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    });
+  };
 
   render() {
     const { reviews } = this.state;

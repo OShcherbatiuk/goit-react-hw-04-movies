@@ -1,23 +1,38 @@
 import { Component } from 'react';
 import MovieList from '../../components/MovieList';
-import Axios from 'axios';
+import ApiService from '../../services/ApiService';
+
+const apiService = new ApiService();
 
 class HomePage extends Component {
   state = {
     movies: [],
+    isLoading: false,
   };
-  async componentDidMount() {
-    const KEY = '455a0ddf1ae97a91f0c666d83d1a7d1f';
-    const searchQuery = `https://api.themoviedb.org/3/trending/all/day?api_key=${KEY}`;
-    const response = await Axios.get(searchQuery);
-    this.setState({ movies: response.data.results });
+
+  componentDidMount() {
+    this.fetchTrading();
     localStorage.clear();
   }
+
+  fetchTrading = () => {
+    this.setState({ isLoading: true });
+    apiService
+      .getTradingMovies()
+      .then(data => {
+        this.setState({ movies: data });
+      })
+      .catch(e => console.log(e.message))
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
+  };
 
   render() {
     return (
       <div>
         <h2>Trending today</h2>
+        {this.state.isLoading && <p>Loading...</p>}
         <MovieList movies={this.state.movies} />
       </div>
     );

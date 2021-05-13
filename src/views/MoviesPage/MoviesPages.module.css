@@ -5,7 +5,7 @@
   margin-right: 20px;
   width: 300px;
   border-radius: 4px;
-  border: 1px solid #865d30;
+  border: 1px solid #ff7f00;
   color: #000;
   padding: 8px 5px;
   background: none;
@@ -13,13 +13,13 @@
 .input:focus,
 .input:hover {
   outline: none;
-  border: 2px solid #865d30;
+  border: 2px solid #ff7f00;
   padding: 7px 4px;
 }
 .searchBtn {
   width: 200px;
   color: #fff;
-  background: #0a236a;
+  background: #207ddd;
   border: 2px solid transparent;
   border-radius: 4px;
   padding: 8px 15px;
@@ -28,8 +28,8 @@
 }
 .searchBtn:hover {
   background: none;
-  border: 2px solid #865d30;
-  color: #865d30;
+  border: 2px solid #ff7f00;
+  color: #ff7f00;
 }
 
 .searchBtn:focus {

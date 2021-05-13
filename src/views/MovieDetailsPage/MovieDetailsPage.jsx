@@ -1,27 +1,56 @@
-import { Component } from 'react';
+import { Component, Suspense } from 'react';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
-import Axios from 'axios';
+import Loader from 'react-loader-spinner';
+import img from '../../img/no-img.jpg';
+
 import Cast from '../../components/Cast';
 import Reviews from '../../components/Reviews';
 import routes from '../../routes';
+import ApiService from '../../services/ApiService';
 
 import s from './MovieDetailsPage.module.css';
 
+const apiService = new ApiService();
+
 class MovieDetailsPage extends Component {
   state = {
-    movies: [],
-    genres: [],
+    genres: '',
+    overview: '',
+    poster_path: '',
+    title: '',
+    vote_average: '',
+    release_date: '',
   };
 
-  async componentDidMount() {
-    const KEY = '455a0ddf1ae97a91f0c666d83d1a7d1f';
-    const searchQuery = `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=${KEY}&language=en-US`;
-    const response = await Axios.get(searchQuery);
-
-    this.setState({
-      movies: response.data,
-      genres: response.data.genres,
-    });
+  componentDidMount() {
+    const { movieId } = this.props.match.params;
+    apiService
+      .getMovieById(movieId)
+      .then(
+        ({
+          genres,
+          overview,
+          poster_path,
+          title,
+          vote_average,
+          release_date,
+        }) => {
+          if (genres) {
+            genres = genres.map(el => el.name).join(', ');
+          }
+          if (poster_path) {
+            poster_path = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+          }
+          this.setState({
+            genres,
+            overview,
+            poster_path,
+            title,
+            vote_average,
+            release_date,
+          });
+        },
+      );
   }
 
   handleGoBack = () => {
@@ -37,32 +66,31 @@ class MovieDetailsPage extends Component {
 
   render() {
     const { match, location } = this.props;
-    const { movies, genres } = this.state;
+    const {
+      genres,
+      overview,
+      poster_path,
+      title,
+      vote_average,
+      release_date,
+    } = this.state;
     return (
       <>
         <button type="button" className={s.backBtn} onClick={this.handleGoBack}>
           Go back
         </button>
         <div className={s.movieDetails}>
-          <img
-            className={s.moviePoster}
-            src={`https://image.tmdb.org/t/p/w300${this.state.movies.poster_path}`}
-            alt=""
-          />
+          <img className={s.moviePoster} src={poster_path || img} alt="" />
           <div className={s.description}>
             <h1 className={s.detail}>
-              {movies.title} ({new Date(movies.release_date).getFullYear()})
+              {title} ({new Date(release_date).getFullYear()})
             </h1>
-            <p className={s.detail}>User score: {movies.vote_average}</p>
+            <p className={s.detail}>User score: {vote_average}</p>
             <h2 className={s.detail}>Overview</h2>
-            <p className={s.detail}>{movies.overview}</p>
+            <p className={s.detail}>{overview}</p>
             <h3 className={s.detail}>Genres</h3>
             <ul className={s.genres}>
-              {genres.map(genre => (
-                <li key={genre.id} className={s.genresItem}>
-                  {genre.name}
-                </li>
-              ))}
+              <p>{genres}</p>
             </ul>
           </div>
         </div>
@@ -95,13 +123,23 @@ class MovieDetailsPage extends Component {
             </li>
           </ul>
         </div>
-
-        <div>
+        <Suspense
+          fallback={
+            <Loader
+              className="{s.Loader}"
+              type="ThreeDots"
+              color="#3f51b5"
+              height={80}
+              width={80}
+              timeout={3000}
+            />
+          }
+        >
           <Switch>
             <Route path={`${match.path}/cast`} component={Cast} />
             <Route path={`${match.path}/reviews`} component={Reviews} />
           </Switch>
-        </div>
+        </Suspense>
       </>
     );
   }

@@ -14,28 +14,3 @@ ul {
 a {
   text-decoration: none;
 }
-.container {
-  width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 30px;
-}
-.button {
-  color: #fff;
-  background: #865d30;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: background-color 250ms, opacity 250ms;
-}
-
-.button:hover {
-  background: none;
-  border: 2px solid #865d30;
-  color: #865d30;
-}
-
-.button:focus {
-  outline: none;
-}

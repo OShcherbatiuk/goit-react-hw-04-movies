@@ -7,15 +7,16 @@ const Navigation = () => {
   return (
     <nav className={s.siteNav}>
       <NavLink
+        exact
         to={routes.HomePage}
-        activeClassName={'active'}
+        activeClassName={s.active}
         className={s.navLink}
       >
         Home
       </NavLink>
       <NavLink
         to={routes.MoviesPage}
-        activeClassName={'active'}
+        activeClassName={s.active}
         className={s.navLink}
       >
         Movies
