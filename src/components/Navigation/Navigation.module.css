@@ -1,8 +1,16 @@
-.list {
+.siteNav {
   display: flex;
 }
-
-.item {
-  margin-right: 25px;
-  list-style: none;
+.navLink {
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1b140b;
+}
+.navLink:not(:last-child) {
+  margin-right: 20px;
+}
+.active {
+  color: #865d30;
+  text-decoration: underline;
 }

@@ -1,0 +1,13 @@
+.previewList {
+  padding-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+.previewItem {
+  margin: 10px;
+  width: 200px;
+}
+.previewImg {
+  width: 100%;
+}

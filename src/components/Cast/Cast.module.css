@@ -1,0 +1,15 @@
+.castList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+.castItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  margin: 10px;
+}
+.castImg {
+  width: 100%;
+}

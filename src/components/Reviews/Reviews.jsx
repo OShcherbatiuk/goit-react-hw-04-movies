@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import Axios from 'axios';
 
+import s from './Rewiews.module.css';
+
 class Reviews extends Component {
   state = { reviews: [] };
 
@@ -10,6 +12,10 @@ class Reviews extends Component {
     const response = await Axios.get(searchQuery);
 
     this.setState({ reviews: response.data.results });
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
   render() {
@@ -18,10 +24,11 @@ class Reviews extends Component {
     return (
       <div>
         {isReviews ? (
-          <ul>
+          <ul className={s.reviewsList}>
             {reviews.map(review => (
-              <li key={review.id}>
-                Author: {review.author} <p>{review.content}</p>
+              <li key={review.id} className={s.reviewsItem}>
+                <p className={s.reviewAuthor}>Author: {review.author}</p>
+                <p>{review.content}</p>
               </li>
             ))}
           </ul>

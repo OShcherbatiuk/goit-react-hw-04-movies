@@ -39,36 +39,37 @@ class MovieDetailsPage extends Component {
     const { match, location } = this.props;
     const { movies, genres } = this.state;
     return (
-      <div>
-        <button type="button" onClick={this.handleGoBack}>
+      <>
+        <button type="button" className={s.backBtn} onClick={this.handleGoBack}>
           Go back
         </button>
-        <div className={s.container}>
-          <div className="BookPreview-thumb">
-            <img
-              src={`https://image.tmdb.org/t/p/w300${this.state.movies.poster_path}`}
-              alt=""
-            />
-          </div>
-          <div>
-            <h1>
+        <div className={s.movieDetails}>
+          <img
+            className={s.moviePoster}
+            src={`https://image.tmdb.org/t/p/w300${this.state.movies.poster_path}`}
+            alt=""
+          />
+          <div className={s.description}>
+            <h1 className={s.detail}>
               {movies.title} ({new Date(movies.release_date).getFullYear()})
             </h1>
-            <p>User score: {movies.vote_average}</p>
-            <h2>Overview</h2>
-            <p>{movies.overview}</p>
-            <h3>Genres</h3>
-            <ul>
+            <p className={s.detail}>User score: {movies.vote_average}</p>
+            <h2 className={s.detail}>Overview</h2>
+            <p className={s.detail}>{movies.overview}</p>
+            <h3 className={s.detail}>Genres</h3>
+            <ul className={s.genres}>
               {genres.map(genre => (
-                <li key={genre.id}>{genre.name}</li>
+                <li key={genre.id} className={s.genresItem}>
+                  {genre.name}
+                </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className={s.info}>
-          <p>Aditional infomation</p>
+        <div>
+          <h3 className={s.detail}>Aditional infomation</h3>
           <ul>
-            <li>
+            <li className={s.detail}>
               <NavLink
                 to={{
                   pathname: `${match.url}/cast`,
@@ -80,7 +81,7 @@ class MovieDetailsPage extends Component {
                 Cast
               </NavLink>
             </li>
-            <li>
+            <li className={s.detail}>
               <NavLink
                 to={{
                   pathname: `${match.url}/reviews`,
@@ -101,7 +102,7 @@ class MovieDetailsPage extends Component {
             <Route path={`${match.path}/reviews`} component={Reviews} />
           </Switch>
         </div>
-      </div>
+      </>
     );
   }
 }

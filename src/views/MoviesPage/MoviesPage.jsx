@@ -46,13 +46,13 @@ class MoviesPage extends Component {
       <div>
         <form className={s.SearchForm}>
           <input
-            className={s.SearchForm_input}
+            className={s.input}
             type="text"
             onChange={this.onInputChange}
           />
           <button
             type="submit"
-            className={s.SearchForm_button}
+            className={s.searchBtn}
             onClick={this.onInputSubmit}
           >
             <span className={s.SearchForm_button_label}>Search</span>

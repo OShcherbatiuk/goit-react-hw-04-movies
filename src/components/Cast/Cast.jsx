@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import Axios from 'axios';
 
+import s from './Cast.module.css';
+
 class Cast extends Component {
   state = {
     cast: [],
@@ -13,6 +15,10 @@ class Cast extends Component {
     this.setState({
       cast: response.data.cast,
     });
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }
   render() {
     const { cast } = this.state;
@@ -20,12 +26,13 @@ class Cast extends Component {
     return (
       <div>
         {isCast ? (
-          <ul>
+          <ul className={s.castList}>
             {cast.map(cast => (
-              <li key={cast.id}>
+              <li key={cast.id} className={s.castItem}>
                 <img
                   src={`https://image.tmdb.org/t/p/w138_and_h175_bestv2/${cast.profile_path}`}
                   alt=""
+                  className={s.castImg}
                 />
                 {cast.name} <p>Character: {cast.character}</p>
               </li>

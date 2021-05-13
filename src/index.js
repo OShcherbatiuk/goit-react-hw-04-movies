@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import 'modern-normalize/modern-normalize.css';
 import { BrowserRouter } from 'react-router-dom';
+
+import 'modern-normalize/modern-normalize.css';
+import './style.css';
 
 ReactDOM.render(
   <React.StrictMode>
