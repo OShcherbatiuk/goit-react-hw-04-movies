@@ -17,7 +17,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <h1>Trending today</h1>
+        <h2>Trending today</h2>
         <MovieList movies={this.state.movies} />
       </div>
     );
