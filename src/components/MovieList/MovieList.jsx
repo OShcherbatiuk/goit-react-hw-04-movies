@@ -7,7 +7,7 @@ import s from './MovieList.module.css';
 const MovieList = ({ movies, location }) => {
   return (
     <ul className={s.previewList}>
-      {movies.map(({ id, title, poster_path }) => (
+      {movies.map(({ id, title, poster_path, name }) => (
         <li key={id} className={s.previewItem}>
           <Link
             to={{
@@ -27,7 +27,7 @@ const MovieList = ({ movies, location }) => {
                 }
                 alt=""
               />
-              <h3>{title}</h3>
+              <h3>{title || name}</h3>
             </div>
           </Link>
         </li>

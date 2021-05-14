@@ -10,19 +10,6 @@ class Cast extends Component {
   state = {
     cast: [],
   };
-  // async componentDidMount() {
-  //   const KEY = '455a0ddf1ae97a91f0c666d83d1a7d1f';
-  //   const searchQuery = `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/credits?api_key=${KEY}&language=en-US`;
-  //   const response = await Axios.get(searchQuery);
-
-  //   this.setState({
-  //     cast: response.data.cast,
-  //   });
-  //   window.scrollTo({
-  //     top: document.documentElement.scrollHeight,
-  //     behavior: 'smooth',
-  //   });
-  // }
 
   componentDidMount() {
     this.fetchCast();
@@ -32,7 +19,7 @@ class Cast extends Component {
     apiService.getMovieCredits(movieId).then(data => {
       data = data.map(el => {
         if (el.profile_path) {
-          el.profile_path = `https://image.tmdb.org/t/p/w500/${el.profile_path}`;
+          el.profile_path = `https://image.tmdb.org/t/p/w300/${el.profile_path}`;
         }
         return { ...el };
       });
