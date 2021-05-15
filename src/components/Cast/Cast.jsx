@@ -35,6 +35,7 @@ class Cast extends Component {
   };
 
   render() {
+    const { location } = this.props;
     const { cast } = this.state;
     const isCast = cast.length;
     return (
@@ -43,7 +44,14 @@ class Cast extends Component {
           <ul className={s.castList}>
             {cast.map(cast => (
               <li key={cast.id} className={s.castItem}>
-                <Link to={`/person/${cast.id}`}>
+                <Link
+                  to={{
+                    pathname: `/person/${cast.id}`,
+                    state: {
+                      from: location,
+                    },
+                  }}
+                >
                   <img
                     src={cast.profile_path || img}
                     alt=""

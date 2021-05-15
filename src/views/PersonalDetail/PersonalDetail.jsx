@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import img from '../../img/no-img.jpg';
 import ApiService from '../../services/ApiService';
+import routes from '../../routes';
 
-// import s from './PersonalDetail.module.css';
+import s from './PersonalDetail.module.css';
 
 const apiService = new ApiService();
 
@@ -44,6 +45,17 @@ class PersonalDetail extends Component {
       );
   };
 
+  handleGoBack = () => {
+    const { location, history } = this.props;
+
+    if (location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push(routes.HomePage);
+
+    // history.push(location?.state?.from || routes.HomePage);
+  };
+
   render() {
     console.log(this.state);
     const {
@@ -56,18 +68,25 @@ class PersonalDetail extends Component {
     } = this.state;
 
     return (
-      <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w300/${profile_path}` || img}
-          alt=""
-          className="{s.profImg}"
-        />
-        <p>{name}</p>
-        <p>Birthday: {birthday} (полных лет)</p>
-        <p>Place of birth: {place_of_birth}</p>
-        <p>Raiting: {popularity}</p>
-        <p>Biography: {biography}</p>
-      </div>
+      <>
+        <button type="button" className={s.backBtn} onClick={this.handleGoBack}>
+          Go back
+        </button>
+        <div className={s.personalDetails}>
+          <img
+            src={`https://image.tmdb.org/t/p/w300/${profile_path}` || img}
+            alt=""
+            className={s.profPoster}
+          />
+          <div className={s.description}>
+            <p className={s.detail}>{name}</p>
+            <p className={s.detail}>Birthday: {birthday} (полных лет)</p>
+            <p className={s.detail}>Place of birth: {place_of_birth}</p>
+            <p className={s.detail}>Raiting: {popularity}</p>
+            <p className={s.detail}>Biography: {biography}</p>
+          </div>
+        </div>
+      </>
     );
   }
 }

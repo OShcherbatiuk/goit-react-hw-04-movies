@@ -1,0 +1,39 @@
+.backBtn {
+  margin-bottom: 30px;
+  color: #fff;
+  background: #717576;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 250ms, opacity 250ms;
+}
+
+.backBtn:hover {
+  background: none;
+  border: 2px solid #ff7f00;
+  color: #ff7f00;
+}
+
+.backBtn:focus {
+  outline: none;
+}
+
+.personalDetails {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.description {
+  max-width: 560px;
+}
+
+.detail {
+  margin-bottom: 10px;
+}
+
+.profPoster {
+  width: 300px;
+  height: 100%;
+  margin-right: 30px;
+}
