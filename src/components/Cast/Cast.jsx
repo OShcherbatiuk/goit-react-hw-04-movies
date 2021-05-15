@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import img from '../../img/no-img.jpg';
 import ApiService from '../../services/ApiService';
 
@@ -42,12 +43,14 @@ class Cast extends Component {
           <ul className={s.castList}>
             {cast.map(cast => (
               <li key={cast.id} className={s.castItem}>
-                <img
-                  src={cast.profile_path || img}
-                  alt=""
-                  className={s.castImg}
-                />
-                {cast.name} <p>Character: {cast.character}</p>
+                <Link to={`/person/${cast.id}`}>
+                  <img
+                    src={cast.profile_path || img}
+                    alt=""
+                    className={s.castImg}
+                  />
+                  {cast.name} <p>Character: {cast.character}</p>
+                </Link>
               </li>
             ))}
           </ul>

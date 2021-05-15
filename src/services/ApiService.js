@@ -33,4 +33,8 @@ export default class ApiService {
     );
     return response.data.results;
   }
+  async getPersonalDetail(personId) {
+    const response = await axios.get(`/person/${personId}?api_key=${API_KEY}`);
+    return response.data;
+  }
 }
